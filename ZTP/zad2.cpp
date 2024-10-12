@@ -25,7 +25,7 @@ int game(void) {
 	int answer;
 	char randchar = getrandchar();
 	for (int i = 0; i < no_questions; ++i) {
-		std::cout << int(randchar) << std::endl;
+		std::cout << randchar << std::endl;
 		std::cin >> answer;
 		clearBuffer();
 		if (answer != randchar) {
