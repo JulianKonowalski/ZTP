@@ -7,18 +7,6 @@
 
 std::unordered_set <char> decorators = {'_', '*', '`'}; //bez # bo to nie formatowanie czcionki
 
-//chars = [*, **, _, __, `]
-//
-//if char in chars:
-//	if not begFlag
-//		begFlag = true
-//		opened = char
-//		continue
-//	if char != opened:
-//		throw exept
-//	opened = null
-//	begFlag = false
-
 void parser(std::ifstream& file) {
 	bool openFlag = false;
 	char currentDecorator = 0;
@@ -33,7 +21,7 @@ void parser(std::ifstream& file) {
 				} else if (!decorators.contains(tmp)) {
 					openDecorator = std::string(currentDecorator, 1);
 				} else {
-					throw std::runtime_error("Wrong formatting");
+					throw std::runtime_error("Unmatched opening decorators");
 				}
 				openFlag = true;
 			} else { //close decorator
@@ -43,10 +31,10 @@ void parser(std::ifstream& file) {
 				} else if (!decorators.contains(tmp)) {
 					closeDecorator = std::string(currentDecorator, 1);
 				} else {
-					throw std::runtime_error("Wrong formatting");
+					throw std::runtime_error("Unmatched closing decorators");
 				}
 				if (closeDecorator != openDecorator) {
-					throw std::runtime_error("Wrong formatting");
+					throw std::runtime_error("Closing decorator not matching the opening decorator!");
 				}
 				openFlag = false;
 			}

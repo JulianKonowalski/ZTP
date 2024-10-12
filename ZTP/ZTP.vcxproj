@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="zad1.cpp" />
     <ClCompile Include="zad2.cpp" />
     <ClCompile Include="zad3.cpp" />
   </ItemGroup>
