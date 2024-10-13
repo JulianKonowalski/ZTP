@@ -1,30 +1,26 @@
 #include <iostream>
-#include <chrono>
 #include <ctime>
 #include <cstdlib>
 #include <stdexcept>
 
-#define no_questions 10
+#define NO_QUESIONS 10
 
-void clearBuffer(void) {
+inline void clearBuffer(void) {
 	while (getchar() != '\n');
 }
 
 char getrandchar(void) {
 	srand(time(nullptr));	
 	int offset = 'z' - 'a' + 1;
-	char randchar = 'a' + rand() % offset;
-	return randchar;
+	return 'a' + rand() % offset;
 }
 
 int game(void) {
-	struct tm date;
 	time_t now, before;
 	time(&before);
-	int failed = 0;
-	int answer;
+	int answer, failed = 0;
 	char randchar = getrandchar();
-	for (int i = 0; i < no_questions; ++i) {
+	for (int i = 0; i < NO_QUESIONS; ++i) {
 		std::cout << randchar << std::endl;
 		std::cin >> answer;
 		clearBuffer();
@@ -33,6 +29,8 @@ int game(void) {
 			if (failed == 2) {
 				throw std::runtime_error("two consecutive fails");
 			}
+			system("cls");
+			std::cout << "Try again: ";
 			continue;
 		}
 		randchar = getrandchar();
@@ -47,18 +45,17 @@ int main(void) {
 	while (true) {
 		try {
 			int time_s = game();
-			std::cout << "this round took " << time_s << " seconds" << std::endl;
+			std::cout << "This round took " << time_s << " seconds" << std::endl;
 		}
-		catch (std::runtime_error) {
-			std::cout << "failed twice" << std::endl;
+		catch (std::runtime_error& error) {
+			std::cout << error.what() << std::endl;
 		}
-		std::cout << "play again? y/n" << std::endl; //ten fragment mozna wstawic do catch'a "w ramach obslugi wyjatku"
-		char answer;
-		std::cin >> answer;
-		if (answer == 'n') {
-			std::cout << "exiting the program..." << std::endl;
+		std::cout << "Play again? y/n" << std::endl; //ten fragment mozna wstawic do catch'a "w ramach obslugi wyjatku"
+		if (getchar() == 'n') {
+			std::cout << "Exiting the program..." << std::endl;
 			break;
 		}
+		clearBuffer();
 		system("cls");
 	}
 	return 0;
