@@ -90,9 +90,7 @@ void Stack<T>::pop(void) { //doesn't throw if stackSize == 0
 
 template <typename T>
 T Stack<T>::top(void) { //throws runtime_error if stackSize == 0
-	if (!m_end) {
-		throw std::runtime_error("Tried to draw from an empty stack!");
-	}
+	if (!m_end) { throw std::runtime_error("Tried to draw from an empty stack!"); }
 	return m_end->m_value;
 }
 
@@ -106,19 +104,10 @@ void fillStack(Stack<T>& stack, int numElements) {
 }
 
 template <typename T>
-void printStack(Stack<T>& stack) {
-	for (auto it : stack) {
-		std::cout << it << '\n';
-	}
-}
-
-template <typename T>
 T* getArray(Stack<T> stack) {
 	T* valueArray = new T[stack.getSize()];
 	typename Stack<T>::StackIterator it(stack.begin());
-	for (it; it != stack.end(); ++it) {
-		valueArray[it.getIndex()] = *it;
-	}
+	for (it; it != stack.end(); ++it) { valueArray[it.getIndex()] = *it; }
 	return valueArray;
 }
 
@@ -160,7 +149,7 @@ T minMax(Stack<T>& stack, int mode) {
 template <typename T>
 T median(Stack<T> stack) { //too lazy to implement an algo
 	T medianValue, *valueArray = getArray(stack);
-	int arraySize = stack.getSize();
+	size_t arraySize = stack.getSize();
 	sortArray(valueArray, arraySize);
 	if (arraySize % 2 == 0) {
 		medianValue = (valueArray[arraySize / 2] + valueArray[(arraySize + 1) / 2]) / 2.0; //avg of 2 middle elements
@@ -174,9 +163,7 @@ T median(Stack<T> stack) { //too lazy to implement an algo
 template <typename T>
 T avg(Stack<T>& stack) {
 	T avg = 0;
-	for (auto value : stack) {
-		avg += value / (double)stack.getSize();
-	}
+	for (auto value : stack) { avg += value / (double)stack.getSize(); }
 	return avg;
 }
 
