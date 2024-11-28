@@ -137,6 +137,7 @@
     <ClCompile Include="zad4.cpp" />
     <ClCompile Include="zad5.cpp" />
     <ClCompile Include="zad6.cpp" />
+    <ClCompile Include="zad7.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
