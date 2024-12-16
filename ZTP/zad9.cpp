@@ -49,6 +49,7 @@ void drawPoints(const std::vector<std::vector<double>>& points) {
   }
 }
 
+
 int main(void) {
   std::memset(buffer, ' ', sizeof(buffer));
   srand((unsigned)time(nullptr));
