@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <random>
 
 #define MAX_POINTS 10
 #define MIN_COORD -10.0
@@ -13,13 +14,11 @@
 #define BUFFER_HEIGHT 40
 
 static char buffer[BUFFER_HEIGHT * BUFFER_WIDTH];
+static std::random_device rd{};
+static std::mt19937 gen{rd()};
+static std::normal_distribution<double> d(0.0, 3.33);
 
 double accumulateSquare(double x, double y) { return x + (y * y); }
-
-double getRandomDouble(double min, double max) {
-  double value = (rand() / (double)RAND_MAX) * (max - min) + min;
-  return value;
-}
 
 double calculateLength(const std::vector<double>& vector) {
   double length = 0.0;
@@ -56,7 +55,7 @@ int main(void) {
   std::vector<std::vector<double>> points(200);
   std::generate(points.begin(), points.end(), [](){ 
     std::vector<double> vector(2);
-    std::generate(vector.begin(), vector.end(), []() { return getRandomDouble(MIN_COORD, MAX_COORD); });
+    std::generate(vector.begin(), vector.end(), []() { return d(gen); });
     return vector; 
   });
   std::for_each(points.begin(), points.end(), [](auto& vector) { vector = normalize(vector); });
